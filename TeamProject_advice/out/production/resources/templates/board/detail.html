@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/main_layout}">
+
+<head>
+  <title>board</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../../static/css/board/detail.css" th:href="@{/css/board/list.css}">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div id="contents">
+
+      <div id="customer">
+        <div class="viewDivMt">
+          <div class="viewHead">
+            <div class="subject">
+              <ul>
+                <li>쟈뎅 전문 쇼핑몰 쟈뎅샵이 리뉴얼 오픈합니다.</li>
+              </ul>
+            </div>
+            <div class="day">
+              <p class="txt">작성일<span>14.01.28</span></p>
+            </div>
+          </div>
+
+          <div class="viewContents" >
+            <scan th:text="${detail.content}"></scan>
+          </div>
+        </div>
+
+
+        <!-- 이전다음글 -->
+        <div class="pnDiv web">
+          <table summary="이전다음글을 선택하여 보실 수 있습니다." class="preNext" border="1" cellspacing="0">
+            <caption>이전다음글</caption>
+            <colgroup>
+              <col width="100px" />
+              <col width="*" />
+            </colgroup>
+            <tbody>
+            <tr>
+              <th class="pre">PREV</th>
+              <td><a href="#">이전 글이 없습니다.</a></td>
+            </tr>
+
+            <tr>
+              <th class="next">NEXT</th>
+              <td>98번째 게시글</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- //이전다음글 -->
+
+
+        <!-- Btn Area -->
+        <div class="btnArea btline">
+          <div class="bRight">
+            <ul>
+              <li><a href="#" class="sbtnMini mw">목록</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- //Btn Area -->
+
+      </div>
+    </div>
+    <!-- //contents -->
+
+  </div>
+</body>
+</html>

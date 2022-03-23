@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/main_layout}">
+
+<head>
+  <title>board</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../../static/css/board/list.css" th:href="@{/css/board/only_list.css}" type="text/css">
+  <link rel="stylesheet" href="../../static/css/board/base.css" th:href="@{/css/board/reset.css}" type="text/css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /* <![CDATA[ */
+
+        function boardWrite() {
+            uri = /*[[ @{/board/write} ]]*/;
+            html = '<form name="nonIdForm" action="' + uri + '" method="post"/>';
+            $("body").append(html);
+            document.nonIdForm.submit();
+        }
+        /* ]]> */
+
+    </script>
+  </th:block>
+
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <!-- container -->
+    <div id="container">
+
+      <div id="outbox">
+<!--        <div id="left">-->
+<!--          <div id="title2">CUSTOMER<span>고객센터</span></div>-->
+<!--          <ul>-->
+<!--            <li><a href="#" id="leftNavi1">NOTICE</a></li>-->
+<!--            <li><a href="#" id="leftNavi2">1:1문의</a></li>-->
+<!--            <li><a href="#" id="leftNavi3">FAQ</span></a></li>-->
+<!--            <li class="last"><a href="#" id="leftNavi4">이용안내</a></li>-->
+<!--          </ul>-->
+<!--        </div><script type="text/javascript">initSubmenu(1,0);</script>-->
+
+
+        <!-- contents -->
+        <div id="contents">
+          <div id="customer">
+<!--            <h2><strong>NOTICE</strong><span>쟈뎅샵 소식을 전해드립니다.</span></h2>-->
+
+            <div class="orderDivMt">
+              <table class="orderTable2" border="1" cellspacing="0">
+<!--                <caption>공지사항 보기</caption>-->
+                <colgroup>
+                  <col width="10%" class="tnone" />
+                  <col width="*" />
+                  <col width="14%" class="tw25" />
+                  <col width="14%" class="tnone" />
+                </colgroup>
+                <thead>
+                <th scope="col" class="tnone">NO.</th>
+                <th scope="col">제목</th>
+                <th scope="col">등록일</th>
+                <th scope="col" class="tnone">작성자</th>
+                </thead>
+
+                <tr th:if="${list.isEmpty()}">
+                  <td colspan="4">
+                    작성된 글이 없습니다
+                  </td>
+                </tr>
+
+                <tr th:unless="${list.isEmpty()}" th:each="board : ${list}">
+                  <td class="tnone" th:text="${board.id}"></td>
+                  <td class="left"><a href="#" th:href="|@{ /board/detail( id=${board.id}, page=${page.getPageNumber()}, size=${page.getPageSize()}, sort=${page.getSort()} )}|" th:text="${board.title}"></a></td>
+                  <td class="tnone right" th:text="${#temporals.format(board.registeredAt, 'yyyy-MM-dd HH:mm')}"></td>
+                  <td th:text="${board.getUser().getAccount()}"></td>
+                </tr>
+
+              </table>
+            </div>
+
+
+            <div class="btnAreaList">
+              <!-- 페이징이동 -->
+              <div class="allPageMoving1">
+
+                <a href="#" th:if="${ lastPageNumber == page.getPageNumber()-1 or page.getPageNumber()>4 }" th:href="@{/board/list(page=0, size=${page.getPageSize()}, sort='id,desc', search=${search})}" class="n">
+                  <img th:src="@{/img/btn/btn_pre2.gif}" src="../img/btn/btn_pre2.gif" alt="처음으로"/>
+                </a>
+                <a href="#" th:if="${ page.getPageNumber()>4 and not paging.isEmpty() }" th:href="|@{/board/list(page=${paging.get(0)-1}, size=${page.getPageSize()}, sort='id,desc', search=${search})}|" class="pre">
+                  <img th:src="@{/img/btn/btn_pre1.gif}" src="../img/btn/btn_pre1.gif" alt="앞페이지로"/>
+                </a>
+
+                <a th:unless="${paging.isEmpty()}" th:each="i : ${paging}" th:href="|@{ /board/list(page=${i}, size=${page.getPageSize()}, sort='id,desc', search=${search}) }|" th:text="${i+1}" ></a>
+
+                <a href="#" th:if="${ paging.size() != 0 and paging.get(paging.size()-1) != lastPageNumber }" th:href="|@{/board/list(page=${ paging.get(paging.size()-1)+1 }, size=10, sort='id,desc', search=${search})}|" class="next">
+                  <img src="../img/btn/btn_next1.gif" alt="뒤페이지로"/>
+                </a>
+                <a href="#" th:if="${ paging.size() != 0 and paging.get(paging.size()-1) != lastPageNumber }" th:href="|@{/board/list(page=${lastPageNumber}, size=10, sort='id,desc', search=${search})}|" class="n">
+                  <img th:src="@{/img/btn/btn_next2.gif}" src="../img/btn/btn_next2.gif" alt="마지막페이지로"/>
+                </a>
+
+              </div>
+              <!-- //페이징이동 -->
+            </div>
+
+            <!-- 검색 -->
+            <div class="searchWrap">
+              <div class="search">
+                <ul>
+                  <li class="web"><img th:src="@{/img/txt/txt_search.gif}" src="../img/txt/txt_search.gif" alt="search" /></li>
+                  <li class="se">
+                    <select>
+                      <option value="" />제목</option>
+                    </select>
+                  </li>
+                  <li>
+                    <form th:action="@{ /board/list }">
+                      <input type="text" class="searchInput" th:name="search">
+                      <input type="hidden" th:name="page" th:value="${page.getPageNumber()}">
+                      <input type="hidden" th:name="size" th:value="${page.getPageSize()}">
+<!--                      <input type="hidden" th:name="sort" th:value="${page.getSort()}">-->
+                    </form>
+                  </li>
+                  <li class="web"><a href="#"><img th:src="@{/img/btn/btn_search.gif}" src="../images/btn/btn_search.gif" alt="검색" /></a></li>
+                  <li class="mobile"><a href="#"><img th:src="@{/img/btn/btn_search_m.gif}" src="../img/btn/btn_search_m.gif" alt="검색" /></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- 검색 -->
+
+            <div class="btnArea btline">
+              <div class="bRight">
+                <ul>
+                  <li><a href="#" th:onclick="boardWrite()" class="sbtnMini mw">글쓰기</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- //contents -->
+
+      </div>
+    </div>
+    <!-- //container -->
+
+  </div>
+
+</body>
+
+</html>

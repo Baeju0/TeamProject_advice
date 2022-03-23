@@ -1,0 +1,83 @@
+/* contents */
+#contents{display: flex; justify-content: center; width:670px;}
+/*#contents h2{height:86px; text-align:center; border-bottom:1px #5b524d solid;}*/
+/*#contents h2 strong{width:100%; display:block; font-size:40px; font-weight:600; color:#444; margin:0 0 10px 0;}*/
+/*#contents h2 span{width:100%; display:block; font-size:14px; color:#888; font-weight:normal; line-height:1.2; word-break:keep-all;}*/
+
+/* checkTable */
+.checkDivTab{width:100%; margin:20px 0 0 0; border-top:1px #5b524d solid; overflow:hidden;}
+.checkTable{width:100%; border-width:0; border-spacing:0; border-style:none; font-size:14px;}
+.checkTable th{color:#666; vertical-align:top; text-align:left; font-size:14px; font-weight:600; height:38px;  background:#ebebeb; border-bottom:1px #d9d9d9 solid; vertical-align:middle;}
+.checkTable th.info{font-weight:normal; font-size:13px;}
+.checkTable th span{padding:0 0 0 30px;}
+.checkTable th span u{text-decoration:none;}
+.checkTable td{color:#888; padding:8px 0 8px 20px; vertical-align:middle; text-align:left; font-size:13px; line-height:1.3; border-bottom:1px #d9d9d9 solid;}
+.checkTable td label{font-size:13px; color:#666; padding:2px 35px 0 2px;}
+.checkTable td strong{color:#666;}
+
+/* input type */
+.wlong{width:95%; height:18px; line-height:18px; background:#fff; border:1px #d9d9d9 solid; padding:0 5px; font-size:12px;}
+
+/* textArea */
+.tta{width:95%; height:288px; font-size:12px; border:1px #d9d9d9 solid; font-family:'Nanum Gothic';}
+.checkTable th .comment{height: 300px}
+
+/********* MY PAGE *********/
+#mypage{width:100%; overflow:hidden;}
+#mypage h3{font-size:20px; color:#666; font-weight:600; padding:0 0 15px 0;}
+#mypage h3.dep{padding:40px 0 15px 0;}
+#mypage h3.dep label{font-size:13px; color:#888;}
+#mypage h3.dep input{width:13px;height:13px;margin:5px 0 2px 5px;padding:0;}
+#mypage h3.diviLeft{float:left; width:50%; padding:40px 0 15px 0;}
+#mypage h3 span{font-size:13px; color:#888; font-weight:normal; padding:0 0 0 5px;}
+#mypage .myInfo{width:100%; border:3px #f7703c solid; padding:20px 0; margin:30px 0; background:#f9f9f9; overflow:hidden; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;}
+#mypage .myInfo ul{margin:0 0 0 20px;}
+#mypage .myInfo ul li{float:left; width:16%; height:48px; border-right:1px #d9d9d9 solid; font-size:12px; font-weight:600; text-align:center; line-height:1.9;}
+#mypage .myInfo ul li.last{border:0;}
+#mypage .myInfo ul li.info{width:50%; font-size:13px; font-weight:600; color:#888; line-height:48px; text-align:left;}
+#mypage .myInfo ul li.info strong{font-size:16px; color:#444;}
+#mypage .myInfo ul li span.num{font-size:18px; color:#f7703c; font-weight:600;}
+#mypage .myInfo ul li span.unit{font-size:11px; color:#666; font-weight:normal;}
+#mypage .shortTxt{font-size:13px; font-weight:600; color:#666; line-height:1.2; padding:18px 0 10px 0;}
+#mypage .diviRight{float:left; width:50%; padding:40px 0 15px 0;}
+#mypage .diviRight ul{float:right;}
+#mypage .diviRight ul li{float:left; line-height:18px; color:#888;}
+#mypage .diviRight ul li a{display:block; width:100px; height:20px; line-height:19px; background:#5b524d; color:#fff; font-size:13px; font-weight:600; text-align:center;}
+#mypage .diviRight ul li a:hover{color:#fff;}
+.method01, .method02, .method03, .method04, .method05{display:none; margin:12px 0 0 0;}
+
+#mypage .receipt{display:none; width:100%; background:#f9f9f9; padding:17px 0; overflow:hidden;}
+#mypage .receipt dl{margin:0 30px; border-bottom:1px #d9d9d9 solid;}
+#mypage .receipt dl:after {content:""; display:block; clear:both;}
+#mypage .receipt dl dt{float:left; width:86px; color:#666; font-weight:600; line-height:34px;}
+#mypage .receipt dl dd{float:left;}
+#mypage .receipt dl dd ul li{float:left; height:34px; line-height:34px;}
+#mypage .receipt dl dd ul li label, #mypage .receipt ul li input{display:inline-block; vertical-align:middle;}
+#mypage .receipt dl dd ul li label{font-size:12px; color:#888; padding:1px 40px 0 0; line-height:34px;}
+#mypage .receipt dl dd ul li label.fn{padding:2px 0 0 0;}
+#mypage .receipt ul.inform{display:none; margin:0 30px; border-bottom:1px #d9d9d9 solid;}
+#mypage .receipt ul.inform:after {content:""; display:block; clear:both;}
+#mypage .receipt ul.inform li{float:left; height:36px; line-height:34px;}
+#mypage .receipt ul.inform li.title{width:86px; color:#666; font-weight:600;}
+#mypage .receipt ul.inform li.title2{width:120px; color:#666; font-weight:600;}
+#mypage .receipt ul.inform li.interval{padding:0 100px 0 0;}
+#mypage .receipt ul.inform li label, #mypage .receipt ul li input{display:inline-block; vertical-align:middle;}
+#mypage .receipt ul.inform li label{font-size:12px; color:#888; padding:0 40px 0 0; line-height:34px;}
+#mypage .receipt p.txt{color:#888; line-height:1.2; padding:5px 0; margin:0 30px; word-break:keep-all;}
+#mypage .poroductTotal{width:100%; background:#f9f9f9; overflow:hidden;}
+#mypage .poroductTotal ul{float:right; padding:30px 20px;}
+#mypage .poroductTotal ul li{float:left; font-size:13px; text-align:right; color:#666; font-family:'Dotum';}
+#mypage .poroductTotal ul li strong{font-family:'Dotum';}
+
+/* button */
+.btnArea{position:relative; width:100%; height:30px; padding:20px 0 0 0;text-align:center; clear:both;}
+.bCenter{width:250px; margin:0 auto;}
+.bCenter li{float:left; padding:0 5px;}
+
+.nbtnbig{display:block; width:110px; height:30px; line-height:30px; background:#999; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
+.nbtnbig:hover{color:#fff;}
+
+.sbtnMini{display:block; width:110px; height:30px; line-height:30px; background:#f7703c; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
+.sbtnMini:hover{color:#fff;}
+
+

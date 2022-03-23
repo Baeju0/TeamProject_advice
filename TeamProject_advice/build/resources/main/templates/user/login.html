@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/main_layout}">
+
+<head>
+  <title>board</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../../static/css/board/reset.css" th:href="@{/css/board/reset.css}">
+  <link rel="stylesheet" href="../../static/css/user/login.css" th:href="@{/css/user/login.css}">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div class="mBox" layout:fragment="content">
+  <form class="form-horizontal" method="post" th:action="@{/user/login}">
+    <div class="form-group alert alert-danger" th:if="${param.error}" role="alert">
+      계정이나 비밀번호를 확인해주세요
+    </div>
+    <div class="form-group alert alert-success" th:if="${param.logout}" role="alert">
+      로그아웃 되었습니다
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Account</label>
+      <div class="col-sm-10">
+        <input name="username" type="text" class="form-control" id="inputEmail3" placeholder="계정을 입력해주세요">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+      <div class="col-sm-10">
+        <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="비밀번호를 입력해주세요">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Login</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

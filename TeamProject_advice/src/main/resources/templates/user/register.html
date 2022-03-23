@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/main_layout}">
+
+<head>
+  <title>board</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../../static/css/board/reset.css" th:href="@{/css/board/reset.css}">
+  <link rel="stylesheet" href="../../static/css/user/register.css" th:href="@{/css/user/register.css}">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div class="mBox" layout:fragment="content">
+  <div class="form-group alert alert-danger" th:if="${param.error}" role="alert">
+    이미 존재하는 계정입니다
+  </div>
+
+  <form class="form-horizontal" method="post" th:action="@{/user/register}">
+    <div class="form-group">
+      <label for="inputAccount" class="col-sm-2 control-label">계정</label>
+      <div class="col-sm-10">
+        <input name="account" type="text" class="form-control" id="inputAccount" placeholder="계정을 입력해주세요">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
+      <div class="col-sm-10">
+        <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="비밀번호를 입력해주세요">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">휴대폰 번호</label>
+      <div class="col-sm-10">
+        <input name="phone" type="text" class="form-control" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력해주세요">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">성별</label>
+      <div class="col-sm-10">
+        <select name="gender" class="form-control">
+          <option>남</option>
+          <option>여</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Personal Color</label>
+      <div class="col-sm-10">
+        <select name="color" class="form-control">
+          <option>잘 모름</option>
+          <option>봄웜톤</option>
+          <option>가을웜톤</option>
+          <option>여름쿨톤</option>
+          <option>겨울쿨톤</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">온도센서</label>
+      <div class="col-sm-10">
+        <select name="myTemp" class="form-control">
+          <option>기본</option>
+          <option>추위를 잘타요</option>
+          <option>더위를 잘타요</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">선호하는<br>스타일</label>
+      <div class="col-sm-10">
+        <select name="clotheStyle" class="form-control">
+          <option th:name="non" th:each="style : ${clotheStyleList}"><span th:text="${style}"/></option>
+        </select>
+      </div>
+    </div>
+
+<!--나중에 체크 리스트로 시도-->
+<!--    <div class="form-group">-->
+<!--      <label for="inputPassword3" class="col-sm-2 control-label">선호하는 스타일</label>-->
+<!--      <div class="col-sm-10">-->
+
+<!--        <label class="checkbox-inline" th:each="style, i : ${clotheStyleList}">-->
+<!--          <input type="checkbox" th:name="${i.index}" th:id="${style}">-->
+<!--          <span th:text="${style}"></span>-->
+<!--        </label>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">회원가입</button>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+</body>
+</html>

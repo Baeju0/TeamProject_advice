@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">-->
+
+<div th:fragment="header">
+  <link href="../../static/css/header.css" th:href="@{/css/header.css}" rel="stylesheet" />
+  <nav class="fixed-top">
+    <div class="wrap nav-wrap ">
+      <a href="#" th:href="@{/}" class="logo">
+        <img src="../../static/img/logo01.jpg" th:src="@{/img/logo01.jpg}" style="width: 120px;">
+      </a>
+      <button class="mobile">
+        =
+      </button>
+      <ul>
+<!--        isAuthenticated : spring security5 기능-->
+        <li sec:authorize="!isAuthenticated()">
+          <a href="login.html" th:href="@{/user/login}">LOGIN</a>
+        </li>
+        <li>
+          <a sec:authorize="!isAuthenticated()" th:href="@{/user/register}">SIGN UP</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+          <span sec:authentication="name"></span>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+          <form th:action="@{/logout}" method="post">
+            <button type="submit">LOGOUT</button>
+          </form>
+        </li>
+        <li>
+          <a href="community.html" th:href="@{/board/list}">COMMUNITY</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+          <a>MYPAGE</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+</html>

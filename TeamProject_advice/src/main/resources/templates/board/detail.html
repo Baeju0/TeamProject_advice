@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{/layout/main_layout}">
+
+<head>
+  <title>board</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../../static/css/board/reset.css" th:href="@{/css/board/reset.css}">
+  <link rel="stylesheet" href="../../static/css/board/detail.css" th:href="@{/css/board/detail.css}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /* <![CDATA[ */
+        window.onload = function () {
+        }
+
+        function url() {
+            // /* 내용 */ 이렇게 띄우면 에러남 /*내용*/ 이렇게 사용할 것
+            return /*[[ @{/board/detail/} ]]*/;
+        }
+        function boardWrite() {
+            let uri = /*[[ @{/board/write} ]]*/;
+            let id = /*[[ ${#authentication.getName()} ]]*/;
+            let html = "";
+
+            html += '<form name="idForm" action="' + uri + '" method="post">';
+            html +=   '<input type="hidden" name="boardId" value="' + id + '"/>';
+            html += '</form>';
+
+            $("body").append(html);
+            document.idForm.submit();
+        }
+
+        function boardDelete(id) {
+            if ( confirm( "게시글을 삭제할까요?" ) ) {
+                let uri = url() + "delete.do";
+                let html = "";
+
+                html += '<form name=dataForm action="' + uri + '" method="post">' +
+                            '<input type="hidden" name="id" value="' + id + '"/>' +
+                        '</form>';
+                $("body").append(html);
+                document.dataForm.submit();
+
+                alert("게시글을 삭제하였습니다");
+            }
+        }
+
+        function commentBoxMove (commentId) {
+            document.getElementById('commentBox').scrollIntoView(true);
+            let commentBoxId = 'comment' + commentId;
+            let comment = document.getElementById('comment'+commentId).innerHTML;
+
+            document.getElementById('commentId').value = commentId;
+            document.getElementById('commentBox').value = comment;
+        }
+
+        function commentDelete (commentId) {
+            if ( confirm( "댓글을 삭제할까요?" ) ) {
+                let uri = /*[[ @{/board/commentDelete.do} ]]*/;
+                let boardId = /*[[ ${board.getId()} ]]*/
+                html = '<form name="commentDeleteCall" method="post" action="' + uri +'">';
+                html += '<input name="commentId" value="' + commentId + '" type="hidden">';
+                html += '<input name="boardId" value="' + boardId + '" type="hidden">';
+                html += '</form>';
+
+                $("body").append(html);
+                document.commentDeleteCall.submit();
+            }
+        }
+      /* ]]> */
+
+    </script>
+  </th:block>
+
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div id="contents">
+
+      <div id="customer">
+        <div class="viewDivMt">
+
+          <div class="viewHead">
+            <div class="subject">
+              <ul>
+                <li th:text="${board.getTitle()}">게시글 제목</li>
+              </ul>
+            </div>
+            <div class="day">
+              <p class="txt">작성일
+                <span th:text="${ board.getRegisteredAt() }">게시글 작성 일자</span>
+              </p>
+              <p class="txt">작성자
+                <span th:text="${ board.getUser().getAccount() }">게시글 작성자</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="viewContents" >
+            <scan th:text="${board.content}"></scan>
+          </div>
+
+          <!-- 댓글 -->
+          <div th:unless="${commentPage.isEmpty()}" th:each="com, i : ${commentPage}">
+            <div class="answer" >
+              <div class="inbox">
+                <div class="aname">
+                  <p th:text="${com.getUser().getAccount()}"></p>
+                  <input name="commentId" th:value="${com.getId()}" type="hidden">
+                  <span th:text="${com.getRegisteredAt()}">작성일자</span>
+                </div>
+                <span class="atxt" th:id="${'comment' + com.getId()}" th:text="${com.getComment()}"></span>
+              </div>
+              <div class="commentButtonBox">
+                <button th:if="${checkCommentAccount.get(i.index)}" id="commentUpdate" type="button" th:text="수정" th:onclick="| commentBoxMove(${com.getId()}) |">수정</button>
+                <button th:if="${checkCommentAccount.get(i.index)}" id="commentDelete" type="button" th:text="삭제" th:onclick="| commentDelete(${com.getId()}) |">삭제</button>
+              </div>
+            </div><p>
+          </div>
+
+          <div class="answer" sec:authorize="isAuthenticated()">
+            <form class="commentForm" th:action="@{/board/commentWriteAction.do}" method="post">
+              <span>댓글 작성</span>
+              <div>
+                <input name="boardId" th:value="${board.getId()}" type="hidden">
+                <input name="authAccount" th:value="${#authentication.getName()}" type="hidden">
+                <input id="commentId" name="commentId" type="hidden">
+                <textarea id="commentBox" name="comment"></textarea>
+                <button type="submit" class="btn btn-default">등록</button>
+              </div>
+            </form>
+          </div>
+          <!-- 댓글 -->
+
+        </div>
+
+
+        <!-- 이전다음글 -->
+        <div class="pnDiv web">
+          <table summary="이전다음글을 선택하여 보실 수 있습니다." class="preNext" border="1" cellspacing="0">
+            <!-- <caption>이전다음글</caption> -->
+            <colgroup>
+              <col width="100px" />
+              <col width="*" />
+            </colgroup>
+            <tbody>
+            <tr>
+              <th class="next">NEXT</th>
+              <td>
+                <a href="#" th:if="${boardNext} != null" th:href="|@{/board/detail( id=${boardNext.getId()}, size=${size} )}|" th:text="${boardNext.getTitle()}"></a>
+                <div href="#" th:if="${boardNext} == null" th:text="#{board.nextNull}"></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th class="pre">PREV</th>
+              <td>
+                <a href="#" th:if="${boardPrev} != null" th:href="|@{/board/detail( id=${boardPrev.getId()}, size=${size})}|" th:text="${boardPrev.getTitle()}"></a>
+                <div href="#" th:if="${boardPrev} == null" th:text="#{board.prevNull}"></div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- //이전다음글 -->
+
+
+        <!-- Btn Area -->
+        <div class="btnArea btline">
+          <div class="bRight">
+            <ul>
+              <li><a th:if="${checkBoardAccount}" th:onclick="boardWrite()" class="sbtnMini mw">수정</a></li>
+              <li><a th:if="${checkBoardAccount}" th:onclick="|boardDelete( ${board.getId()} ) |" class="sbtnMini mw" type="button">삭제</a></li>
+              <li><a th:href="|@{/board/list( page=${page}, size=${size}, sort='id,desc' )}|" class="sbtnMini mw">목록</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- //Btn Area -->
+
+      </div>
+    </div>
+    <!-- //contents -->
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+footer {
+    padding: .75em;
+    background-color: white;
+    color: black;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+}
